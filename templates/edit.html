@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Jogador</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Editar Jogador</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ jogador.nome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="text" class="form-control" id="time" name="time" value="{{ jogador.time }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gols">Gols</label>
+                <input type="number" class="form-control" id="gols" name="gols" value="{{ jogador.gols }}" required>
+            </div>
+            <div class="form-group">
+                <label for="jogos">Jogos</label>
+                <input type="number" class="form-control" id="jogos" name="jogos" value="{{ jogador.jogos }}" required>
+            </div>
+            <div class="form-group">
+                <label for="temporada">Temporada</label>
+                <input type="text" class="form-control" id="temporada" name="temporada" value="{{ jogador.temporada }}" required>
+            </div>
+            <div class="form-group">
+                <label for="altura">Altura (m)</label>
+                <input type="text" class="form-control" id="altura" name="altura" value="{{ jogador.altura }}" required>
+            </div>
+            <div class="form-group">
+                <label for="peso">Peso (kg)</label>
+                <input type="text" class="form-control" id="peso" name="peso" value="{{ jogador.peso }}" required>
+            </div>
+            <div class="form-group">
+                <label for="nascimento">Data de Nascimento</label>
+                <input type="date" class="form-control" id="nascimento" name="nascimento" value="{{ jogador.nascimento }}" required>
+            </div>
+            <div class="form-group">
+                <label for="nacionalidade">Nacionalidade</label>
+                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{ jogador.nacionalidade }}" required>
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto</label>
+                <input type="file" class="form-control-file" id="foto" name="foto">
+                {% if jogador.foto %}
+                    <img src="{{ url_for('static', filename='uploads/' + jogador.foto) }}" class="img-thumbnail mt-2" alt="Foto atual">
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lista de Jogadores{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">FootStats </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add">Adicionar Jogador</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jogadores">Lista de Jogadores</a>
+                </li>
+                <!-- Adicione mais itens conforme necessário -->
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar jogador" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Conteúdo da página -->
+    <div class="container mt-4">
+        <h1>Lista de Jogadores</h1>
+        <div class="row">
+            {% for jogador in jogadores %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if jogador.foto %}
+                            <img src="{{ url_for('static', filename='uploads/' + jogador.foto) }}" class="card-img-top" alt="{{ jogador.nome }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Foto não disponível">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ jogador.nome }}</h5>
+                            <p class="card-text">Time: {{ jogador.time }}</p>
+                            <p class="card-text">Gols: {{ jogador.gols }}</p>
+                            <p class="card-text">Jogos: {{ jogador.jogos }}</p>
+                            <p class="card-text">Temporada: {{ jogador.temporada }}</p>
+                            <p class="card-text">Altura: {{ jogador.altura }} m</p>
+                            <p class="card-text">Peso: {{ jogador.peso }} kg</p>
+                            <p class="card-text">Data de Nascimento: {{ jogador.nascimento }}</p>
+                            <p class="card-text">Nacionalidade: {{ jogador.nacionalidade }}</p>
+                            <a href="{{ url_for('edit', id=jogador.id) }}" class="btn btn-warning">Editar</a>
+                            <a href="{{ url_for('delete', id=jogador.id) }}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

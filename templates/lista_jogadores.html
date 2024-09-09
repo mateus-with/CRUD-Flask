@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Jogadores</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Minha Aplicação</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/add">Adicionar Jogador</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/jogadores">Lista de Jogadores <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1>Lista de Jogadores</h1>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Time</th>
+          <th>Gols</th>
+          <th>Jogos</th>
+          <th>Temporada</th>
+          <th>Foto</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for jogador in jogadores %}
+        <tr>
+          <td>{{ jogador.id }}</td>
+          <td>{{ jogador.nome }}</td>
+          <td>{{ jogador.time }}</td>
+          <td>{{ jogador.gols }}</td>
+          <td>{{ jogador.jogos }}</td>
+          <td>{{ jogador.temporada }}</td>
+          <td>
+            {% if jogador.foto %}
+              <img src="{{ url_for('static', filename='uploads/' + jogador.foto) }}" alt="{{ jogador.nome }}" style="width: 100px; height: auto;">
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('edit', id=jogador.id) }}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{{ url_for('delete', id=jogador.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este jogador?');">Excluir</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
