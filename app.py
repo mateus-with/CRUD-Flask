@@ -5,16 +5,14 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# Configuração do banco de dados SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///jogadores.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# Diretório onde as fotos serão armazenadas
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * \
-    1024  # Limite de 16 MB para upload de arquivos
+    1024 
 
 
 class Jogador(db.Model):
@@ -25,13 +23,11 @@ class Jogador(db.Model):
     jogos = db.Column(db.Integer, nullable=False)
     temporada = db.Column(db.String(10), nullable=False)
     foto = db.Column(db.String(100), nullable=True)
-    altura = db.Column(db.String(10), nullable=True)  # Novo campo
-    peso = db.Column(db.Float, nullable=True)          # Novo campo
-    nascimento = db.Column(db.String(10), nullable=True)  # Novo campo
-    nacionalidade = db.Column(db.String(50), nullable=True)  # Novo campo
+    altura = db.Column(db.String(10), nullable=True)  
+    peso = db.Column(db.Float, nullable=True)          
+    nascimento = db.Column(db.String(10), nullable=True) 
+    nacionalidade = db.Column(db.String(50), nullable=True)  
 
-
-# Criar o banco de dados
 with app.app_context():
     db.create_all()
 
@@ -39,7 +35,6 @@ with app.app_context():
 @app.route('/')
 def index():
     jogadores = Jogador.query.all()
-    # Adicione esta linha para verificar se jogadores estão sendo carregados
     print("Jogadores:", jogadores)
     return render_template('index.html', jogadores=jogadores)
 
@@ -88,8 +83,7 @@ def edit(id):
         jogador.peso = request.form['peso']
         jogador.nascimento = request.form['nascimento']
         jogador.nacionalidade = request.form['nacionalidade']
-
-        # Atualizar a foto, se houver uma nova
+        
         nova_foto = request.files.get('foto')
         if nova_foto:
             filename = secure_filename(nova_foto.filename)
